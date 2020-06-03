@@ -4,12 +4,14 @@
 
     <div class="jumbotron">
 
-        <h1>Have a puppy that needs to be adopted?</h1>
-        <p>Add a new puppy to our database!</p>
+        <h1>Add an owner</h1>
+        <p>Add a new owner with the form below: </p>
 
         <form method="POST">
+
             {{form.hidden_tag()}}
             {{form.name.label}}{{form.name}}
+            {{form.id.label}}{{form.id}}
             {{form.submit()}}
 
         </form>

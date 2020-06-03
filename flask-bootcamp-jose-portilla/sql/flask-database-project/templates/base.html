@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Adoption</title>
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -22,12 +22,13 @@
             <a class="nav-item nav-link" href="{{url_for('add_pup')}}">Add Pup</a>
             <a class="nav-item nav-link" href="{{url_for('list_pup')}}">List of Pups</a>
             <a class="nav-item nav-link" href="{{url_for('del_pup')}}">Delete Pup</a>
+            <a class="nav-item nav-link" href="{{url_for('add_owner')}}">Add Owner</a>
         </div>
     </nav>
 
     {% block content %}
     
     {% endblock %}
-        
+    
 </body>
 </html>
