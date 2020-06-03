@@ -1,6 +1,6 @@
 import os
 from forms import AddPuppieForm, DelForm, AddOwnerForm
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = "Jurubeba"
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite///'+os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -63,13 +63,13 @@ class Owner(db.Model):
 
 # SET ROUTES TO FORMS AND VIEWS
 
-@app.router('/')
+@app.route('/')
 def index():
-    
+
     return render_template('home.html')
 
 
-@app.router('/addpuppie', methods=['GET', 'POST'])
+@app.route('/addpuppie', methods=['GET', 'POST'])
 def add_pup():
 
     form = AddPuppieForm()
@@ -87,14 +87,14 @@ def add_pup():
     return render_template('add.html', form=form)
 
 
-@app.router('/list', methods=['GET', 'POST'])
+@app.route('/list', methods=['GET', 'POST'])
 def list_pup():
 
     puppies = Puppies.query.all()
     return render_template('list.html', puppies=puppies)
 
 
-@app.router('/delete', methods=['GET', 'POST'])
+@app.route('/delete', methods=['GET', 'POST'])
 def del_pup():
 
     form = DelForm()
@@ -111,8 +111,8 @@ def del_pup():
     return render_template('delete.html', form=form)
 
 
-@app.router('/owner', methods=['GET', 'POST'])
-def owner():
+@app.route('/owner', methods=['GET', 'POST'])
+def add_owner():
 
     form = AddOwnerForm()
 
@@ -121,7 +121,15 @@ def owner():
         name = form.name.data
         puppy_id = form.id.data
 
-        # WILL NEED A FLASH MESSAGE WITH OWNER NAME
+        new_owner = Owner(name, puppy_id)
+        db.session.add(new_owner)
+        db.session.commit()
+
+        flash(f"Successfully created!!! Owner: {name}")
+
+        return redirect(url_for('list_pup'))
+
+    return render_template('owner.html', form=form)
 
 
 if __name__ == "__main__":
