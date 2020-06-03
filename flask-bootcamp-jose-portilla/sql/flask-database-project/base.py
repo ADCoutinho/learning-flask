@@ -102,7 +102,7 @@ def del_pup():
     if form.validate_on_submit():
 
         id = form.id.data
-        pup = Puppy.query.get(id)
+        pup = Puppies.query.get(id)
         db.session.delete(pup)
         db.session.commit()
 
@@ -120,6 +120,8 @@ def owner():
 
         name = form.name.data
         puppy_id = form.id.data
+
+        # WILL NEED A FLASH MESSAGE WITH OWNER NAME
 
 
 if __name__ == "__main__":
