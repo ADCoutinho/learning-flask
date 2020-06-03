@@ -34,7 +34,7 @@ class Puppies(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    # DB RELATIONSHIP WITH TABLE owners
+    # DB RELATIONSHIP WITH owners / 'uselist=False' as ONE TO ONE RELATION
     owner = db.relationship('Owner', backref='puppy', uselist=False)
 
     def __init__(self, name):
@@ -59,6 +59,9 @@ class Owner(db.Model):
     def __init__(self, name, puppy_id):
         self.name = name
         self.puppy_id = puppy_id
+
+    def __repr__(self):
+        return f"Owner Name: {self.name}"
 
 
 # SET ROUTES TO FORMS AND VIEWS
@@ -119,9 +122,9 @@ def add_owner():
     if form.validate_on_submit():
 
         name = form.name.data
-        puppy_id = form.id.data
+        pup_id = form.pup_id.data
 
-        new_owner = Owner(name, puppy_id)
+        new_owner = Owner(name, pup_id)
         db.session.add(new_owner)
         db.session.commit()
 

@@ -18,5 +18,5 @@ class DelForm(FlaskForm):
 class AddOwnerForm(FlaskForm):
 
     name = StringField('Name of Owner: ')
-    id = IntegerField("ID of Puppy: ")
+    pup_id = IntegerField("ID of Puppy: ")
     submit = SubmitField("Add Owner")
