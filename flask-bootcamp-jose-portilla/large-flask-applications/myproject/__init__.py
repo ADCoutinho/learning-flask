@@ -4,6 +4,8 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from myproject.puppies.views import puppies_blueprint
+from myproject.owners.views import owners_blueprints
 
 app = Flask(__name__)
 
@@ -19,8 +21,5 @@ Migrate(app, db)
 
 
 # Register Blueprints
-from myproject.puppies.views import puppies_blueprint
-from myproject.owners.views import owners_blueprints
-
 app.register_blueprint(owners_blueprints, url_prefix='/owners')
 app.register_blueprint(puppies_blueprint, url_prefix='/puppies')
